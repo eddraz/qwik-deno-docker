@@ -6,11 +6,17 @@ services:
       context: .
       dockerfile: Dockerfile.dev
     ports:
-      - "5173:5173"
+      - "5173:5173"  # Qwik dev server
+      - "4000:4000"  # UI emulator
+      - "5001:5001"  # Hosting emulator
+      - "8080:8080"  # Firestore emulator
+      - "8085:8085"  # Functions emulator debug port
+      - "9000:9000"  # Auth emulator
+      - "9099:9099"  # Database emulator (Realtime Database or Firestore)
+      - "9199:9199"  # Storage emulator
     volumes:
       - ./src:/app/src
       - ./public:/app/public
-      - ./qwik.config.ts:/app/qwik.config.ts
       - ./vite.config.ts:/app/vite.config.ts
       - ./package.json:/app/package.json
   qwik-app-prod:

@@ -8,16 +8,27 @@ WORKDIR /app
 # Copiar los archivos package.json y package-lock.json
 COPY package*.json ./
 
-# Instalar las dependencias usando npm
+# Instalar Java
+RUN apk add --no-cache openjdk17
+# Instalar libc6-compat para que Firebase funcione en Alpine Linux
 RUN apk add libc6-compat
+# Instalar la CLI de Firebase y la última versión de npm
 RUN npm install -g npm@latest
+RUN npm install -g firebase-tools
+# Instalar las dependencias usando npm
 RUN npm install
 
 # Copiar el resto de los archivos del proyecto
 COPY . .
 
+# Instalar las dependencias de la carpeta functions/ usando npm
+RUN npm install --prefix functions
+
 # Exponer el puerto de desarrollo de Qwik
 EXPOSE 5173
 
-# Comando para iniciar el servidor de desarrollo
-CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
+# Exponer los puertos de los emuladores de Firebase
+EXPOSE 4000 5001 8080 8085 9000 9099 9199
+
+# Comando para iniciar el servidor de desarrollo, los emuladores de Firebase, y Genkit
+CMD [ "sh", "-c", "firebase emulators:start --only auth,firestore,functions,storage & npm run dev -- --host 0.0.0.0 && wait" ]
