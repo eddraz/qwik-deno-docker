@@ -38,7 +38,7 @@ jobs:
         uses: denoland/deployctl@v1
         with:
           project: "qwik-docker"
-          entrypoint: "entry.deno.js"
-          root: "server"
+          entrypoint: "server/entry.deno.js"
+          root: "."
           
           
