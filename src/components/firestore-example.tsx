@@ -19,6 +19,10 @@ export const FirestoreExample = component$(() => {
       "Subscribing to items > useTask",
       import.meta.env.PUBLIC_PROJECT_ID
     );
+    console.log(
+      "Subscribing to items > useTask",
+      JSON.stringify(import.meta.env)
+    );
     const querySnapshot = await getDocs(collection(db, "items"));
     items.value = querySnapshot.docs.map((doc) => doc.data().name as string);
   });
