@@ -1,0 +1,23 @@
+# Usar una imagen base de Node.js
+FROM node:20-alpine
+LABEL name="qwik-dev-app"
+
+# Establecer el directorio de trabajo
+WORKDIR /app
+
+# Copiar los archivos package.json y package-lock.json
+COPY package*.json ./
+
+# Instalar las dependencias usando npm
+RUN apk add libc6-compat
+RUN npm install -g npm@latest
+RUN npm install
+
+# Copiar el resto de los archivos del proyecto
+COPY . .
+
+# Exponer el puerto de desarrollo de Qwik
+EXPOSE 5173
+
+# Comando para iniciar el servidor de desarrollo
+CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]

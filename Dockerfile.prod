@@ -1,0 +1,33 @@
+# Etapa de construcción
+FROM node:20-alpine AS build
+LABEL name="qwik-prod-app"
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN apk add libc6-compat
+RUN npm install -g npm@latest
+RUN npm install
+
+COPY . .
+
+RUN npm run build
+
+# Etapa de producción
+FROM denoland/deno
+
+WORKDIR /app
+
+# El --from=build indica que se copiarán los archivos de la etapa de construcción (FROM node:20-alpine AS build)
+COPY --from=build /app/server ./server
+COPY --from=build /app/dist ./dist
+COPY package*.json ./
+
+RUN deno install
+RUN deno install --allow-scripts=npm:@firebase/util@1.11.0,npm:sharp@0.33.5,npm:protobufjs@7.4.0
+
+EXPOSE 3009
+
+# Comando para iniciar la aplicación con Deno
+CMD ["deno", "task", "serve"]

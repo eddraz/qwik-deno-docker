@@ -1,0 +1,22 @@
+version: "3.8"
+services:
+  qwik-app:
+    profiles: ["dev"]
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./src:/app/src
+      - ./public:/app/public
+      - ./qwik.config.ts:/app/qwik.config.ts
+      - ./vite.config.ts:/app/vite.config.ts
+      - ./package.json:/app/package.json
+  qwik-app-prod:
+    profiles: ["prod"]
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    ports:
+      - "3009:3009"
