@@ -33,11 +33,13 @@ Inside your project, you'll see the following directory structure:
 ## Prerequisites
 
 ### Install Podman
+
 Podman is required to run the containerized application. Follow the installation instructions for your operating system from the [official Podman documentation](https://podman.io/getting-started/installation).
 
 It is recommended to install [Podman Desktop](https://podman-desktop.io/) for a better container management experience with a graphical interface.
 
 ### Install Firebase CLI
+
 The Firebase CLI is required for deployment and local development:
 
 ```shell
@@ -49,14 +51,15 @@ npm install -g firebase-tools
 ### Firebase Setup
 
 1. Create a `.env` file in the root directory with the following configuration:
+
 ```
-VITE_API_KEY=xxxxxxxxxxxxx
-VITE_AUTH_DOMAIN=xxxxxxxxxxxxx
-VITE_PROJECT_ID=xxxxxxxxxxxxx
-VITE_STORAGE_BUCKET=xxxxxxxxxxxxx
-VITE_MESSAGING_SENDER_ID=xxxxxxxxxxxxx
-VITE_APP_ID=xxxxxxxxxxxxx
-VITE_MEASUREMENT_ID=xxxxxxxxxxxxx
+PUBLIC_API_KEY=xxxxxxxxxxxxx
+PUBLIC_AUTH_DOMAIN=xxxxxxxxxxxxx
+PUBLIC_PROJECT_ID=xxxxxxxxxxxxx
+PUBLIC_STORAGE_BUCKET=xxxxxxxxxxxxx
+PUBLIC_MESSAGING_SENDER_ID=xxxxxxxxxxxxx
+PUBLIC_APP_ID=xxxxxxxxxxxxx
+PUBLIC_MEASUREMENT_ID=xxxxxxxxxxxxx
 ```
 
 2. Update your Firebase project name in `.firebaserc`
@@ -98,6 +101,7 @@ pnpm build # or `pnpm build`
 ## Running the Application
 
 ### Local Development
+
 Run the application locally using Podman Compose:
 
 ```shell
@@ -105,6 +109,7 @@ podman compose --profile dev up --build
 ```
 
 ### Production Deployment
+
 Deploy the application in production mode:
 
 ```shell

@@ -17,7 +17,7 @@ export const FirestoreExample = component$(() => {
   useTask$(async () => {
     console.log(
       "Subscribing to items > useTask",
-      import.meta.env.VITE_PROJECT_ID
+      import.meta.env.PUBLIC_PROJECT_ID
     );
     const querySnapshot = await getDocs(collection(db, "items"));
     items.value = querySnapshot.docs.map((doc) => doc.data().name as string);
@@ -27,7 +27,7 @@ export const FirestoreExample = component$(() => {
   useVisibleTask$(() => {
     console.log(
       "Subscribing to items > useVisibleTask",
-      import.meta.env.VITE_PROJECT_ID
+      import.meta.env.PUBLIC_PROJECT_ID
     );
     onSnapshot(collection(db, "items"), (querySnapshot) => {
       console.log("Items updated");
