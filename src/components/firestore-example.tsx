@@ -33,6 +33,10 @@ export const FirestoreExample = component$(() => {
       "Subscribing to items > useVisibleTask",
       import.meta.env.PUBLIC_PROJECT_ID
     );
+    console.log(
+      "Subscribing to items > useVisibleTask",
+      JSON.stringify(import.meta.env)
+    );
     onSnapshot(collection(db, "items"), (querySnapshot) => {
       console.log("Items updated");
       items.value = querySnapshot.docs.map((doc) => doc.data().name as string);
