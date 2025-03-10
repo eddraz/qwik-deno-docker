@@ -11,34 +11,43 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      id-token: write # Needed for auth with Deno Deploy
-      contents: read # Needed to clone the repository
+      id-token: write
+      contents: read
 
     steps:
       - name: Clone repository
         uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
 
       - name: Install Deno
         uses: denoland/setup-deno@v2
         with:
           deno-version: v2.x
 
-      - name: Install Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: lts/*
+      - name: Install dependencies
+        run: |
+          npm install -g npm@latest
+          npm install
 
-      - name: Install step
-        run: "npm install"
+      - name: Build application
+        run: npm run build
 
-      - name: Build step
-        run: "npm run build"
+      - name: Install Deno dependencies
+        run: deno install --allow-scripts=npm:@firebase/util@1.11.0,npm:sharp@0.33.5,npm:protobufjs@7.4.0
 
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
         with:
           project: "qwik-docker"
-          entrypoint: "server/entry.deno.js"
+          entrypoint: "./server/entry.deno.js"
           root: "."
-          
-          
+          import-map: "./deno.json"
+          exclude: |
+            node_modules
+            src
+
+
