@@ -1,6 +1,6 @@
 version: "3.8"
 services:
-  qwik-app:
+  dev:
     profiles: ["dev"]
     build:
       context: .
@@ -19,7 +19,7 @@ services:
       - ./public:/app/public
       - ./vite.config.ts:/app/vite.config.ts
       - ./package.json:/app/package.json
-  qwik-app-prod:
+  prod:
     profiles: ["prod"]
     build:
       context: .
