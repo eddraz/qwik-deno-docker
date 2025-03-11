@@ -1,12 +1,19 @@
-# Qwik City App ⚡️
+# Qwik City App Template ⚡️
 
-- [Qwik Docs](https://qwik.dev/)
-- [Discord](https://qwik.dev/chat)
-- [Qwik GitHub](https://github.com/QwikDev/qwik)
-- [@QwikDev](https://twitter.com/QwikDev)
-- [Vite](https://vitejs.dev/)
+Base template for web projects using:
 
----
+- [Qwik](https://qwik.dev/) - High-performance web framework
+- [Docker/Podman](https://podman.io/) - Containerization
+- [Firebase](https://firebase.google.com/) - Backend as a Service
+  - Firebase Emulators for local development
+- [Deno Deploy](https://deno.com/deploy) - Deployment platform
+
+## Key Features
+
+- Local development with Firebase Emulators
+- Docker/Podman containers for development and production
+- Automated deployment to Deno Deploy
+- Continuous integration with GitHub Actions
 
 ## Project Structure
 
@@ -59,12 +66,17 @@ gh auth login
 
 Install [Podman](https://podman.io/getting-started/installation) and [Podman Desktop](https://podman-desktop.io/) for container management.
 
-### Install Firebase CLI
-
-The Firebase CLI is required for deployment and local development:
+### Install Firebase CLI and Emulators
 
 ```shell
+# Install Firebase CLI
 npm install -g firebase-tools
+
+# Login to Firebase
+firebase login
+
+# Install and configure emulators
+firebase init emulators
 ```
 
 ## Configuration
