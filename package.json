@@ -11,7 +11,7 @@
     "build": "qwik build",
     "build.client": "vite build",
     "build.preview": "vite build --ssr src/entry.preview.tsx",
-    "build.server": "vite build -c adapters/deno/vite.config.ts && base64 .env > .env.base64 && gh secret set ENV_FILE_CONTENT --repo eddraz/qwik-deno-docker --body '$(cat .env.base64)'",
+    "build.server": "vite build -c adapters/deno/vite.config.ts",
     "build.types": "tsc --incremental --noEmit",
     "deploy": "echo 'Run \"npm run qwik add\" to install a server adapter'",
     "dev": "vite --mode ssr",
@@ -22,6 +22,7 @@
     "preview": "qwik build preview && vite preview --open",
     "serve": "deno run --env-file=.env --allow-net --allow-read --allow-env server/entry.deno.js",
     "start": "vite --open --mode ssr",
+    "prepare.env.file": "base64 .env > .env.base64 && gh secret set ENV_FILE_CONTENT --repo eddraz/qwik-deno-docker --body '$(cat .env.base64)'",
     "qwik": "qwik"
   },
   "devDependencies": {

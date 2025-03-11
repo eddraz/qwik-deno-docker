@@ -30,11 +30,18 @@ Inside your project, you'll see the following directory structure:
 
 - `public`: Any static assets, like images, can be placed in the public directory. Please see the [Vite public directory](https://vitejs.dev/guide/assets.html#the-public-directory) for more info.
 
+## Initial Setup
+
+1. Clone the repository
+2. Configure your repository name in `package.json`:
+   - Locate the `prepare.env.file` script
+   - Replace `eddraz/qwik-deno-docker` with your repository name
+
 ## Prerequisites
 
 ### Install GitHub CLI
 
-Install [https://github.com/cli/cli/blob/trunk/docs/install_linux.md](GitHub CLI) following these steps:
+Install the [GitHub CLI](https://github.com/cli/cli/blob/trunk/docs/install_linux.md):
 
 ```bash
 type -p curl >/dev/null || (sudo apt update && sudo apt install curl -y)
@@ -43,19 +50,14 @@ curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo 
 && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
 && sudo apt update \
 && sudo apt install gh -y
-```
 
-After installation, authenticate with your GitHub account:
-
-```bash
+# Authenticate with GitHub
 gh auth login
 ```
 
 ### Install Podman
 
-Podman is required to run the containerized application. Follow the installation instructions for your operating system from the [official Podman documentation](https://podman.io/getting-started/installation).
-
-It is recommended to install [Podman Desktop](https://podman-desktop.io/) for a better container management experience with a graphical interface.
+Install [Podman](https://podman.io/getting-started/installation) and [Podman Desktop](https://podman-desktop.io/) for container management.
 
 ### Install Firebase CLI
 
@@ -67,7 +69,7 @@ npm install -g firebase-tools
 
 ## Configuration
 
-### Firebase Setup
+### 1. Firebase Setup
 
 1. Create a `.env` file in the root directory with the following configuration:
 
@@ -83,56 +85,47 @@ PUBLIC_MEASUREMENT_ID=xxxxxxxxxxxxx
 
 2. Update your Firebase project name in `.firebaserc`
 
-### GitHub Actions Deployment Setup
+### 2. GitHub Actions Setup
 
-Antes de realizar el despliegue, necesitas configurar el secreto de GitHub Actions con las variables de entorno:
-
-1. Codifica el contenido del archivo `.env` en base64:
+1. Configure environment secrets:
 
 ```bash
-base64 .env > .env.base64
+pnpm run prepare.env.file
 ```
 
-2. Configura el secreto en GitHub:
-   - Abre el archivo `.env.base64` y copia todo su contenido
-   - Ve a tu repositorio en GitHub → Settings → Secrets and variables → Actions
-   - Crea un nuevo secreto llamado `ENV_FILE_CONTENT`
-   - Pega el contenido codificado en base64 que copiaste
+This command will:
 
-⚠️ IMPORTANTE: No cometas el archivo `.env.base64` al repositorio.
+- Encode your `.env` file to base64
+- Create/update the `ENV_FILE_CONTENT` secret in your GitHub repository
 
-## Add Integrations and deployment
+⚠️ IMPORTANT:
 
-Use the `pnpm qwik add` command to add additional integrations. Some examples of integrations includes: Cloudflare, Netlify or Express Server, and the [Static Site Generator (SSG)](https://qwik.dev/qwikcity/guides/static-site-generation/).
-
-```shell
-pnpm qwik add # or `pnpm qwik add`
-```
+- Never commit `.env` or `.env.base64` files
+- Ensure you have the correct repository name in `package.json`
+- Run this command whenever you update your `.env` file
 
 ## Development
 
-Development mode uses [Vite's development server](https://vitejs.dev/). The `dev` command will server-side render (SSR) the output during development.
+### Local Development
+
+Run the application locally using Podman Compose:
 
 ```shell
-npm start # or `pnpm start`
+podman compose --profile dev up --build
 ```
 
-> Note: during dev mode, Vite may request a significant number of `.js` files. This does not represent a Qwik production build.
-
-## Preview
-
-The preview command will create a production build of the client modules, a production build of `src/entry.preview.tsx`, and run a local server. The preview server is only for convenience to preview a production build locally and should not be used as a production server.
-
-```shell
-pnpm preview # or `pnpm preview`
-```
-
-## Production
+### Production
 
 The production build will generate client and server modules by running both client and server build commands. The build command will use Typescript to run a type check on the source code.
 
 ```shell
 pnpm build # or `pnpm build`
+```
+
+Deploy the application in production mode:
+
+```shell
+podman compose --profile prod up --build
 ```
 
 ## Running the Application
