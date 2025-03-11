@@ -19,7 +19,7 @@ jobs:
 
       - name: Build
         run: |
-          cat .env
+          ls
           npm install
           npm run build
 
