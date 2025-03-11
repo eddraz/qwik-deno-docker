@@ -15,28 +15,12 @@ export const FirestoreExample = component$(() => {
   const items = useSignal<string[]>([]);
 
   useTask$(async () => {
-    console.log(
-      "Subscribing to items > useTask",
-      import.meta.env.PUBLIC_PROJECT_ID
-    );
-    console.log(
-      "Subscribing to items > useTask",
-      JSON.stringify(import.meta.env)
-    );
     const querySnapshot = await getDocs(collection(db, "items"));
     items.value = querySnapshot.docs.map((doc) => doc.data().name as string);
   });
 
   // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(() => {
-    console.log(
-      "Subscribing to items > useVisibleTask",
-      import.meta.env.PUBLIC_PROJECT_ID
-    );
-    console.log(
-      "Subscribing to items > useVisibleTask",
-      JSON.stringify(import.meta.env)
-    );
     onSnapshot(collection(db, "items"), (querySnapshot) => {
       console.log("Items updated");
       items.value = querySnapshot.docs.map((doc) => doc.data().name as string);
