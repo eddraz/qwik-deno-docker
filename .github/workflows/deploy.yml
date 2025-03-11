@@ -25,6 +25,11 @@ jobs:
           npm install
           npm run build
 
+      - name: Build function
+        run: |
+          npm install --prefix functions
+          npm run build --prefix functions
+
       - uses: denoland/deployctl@v1
         with:
           project: "qwik-docker"
