@@ -46,6 +46,7 @@ Inside your project, you'll see the following directory structure:
    - Locate the `prepare.env.file` script in the package.json file
    - Replace `eddraz/qwik-deno-docker` with your repository name
    - Update the origin URL `https://qwik-docker.deno.dev` in `/adapters/deno/vite.config.ts` with your Deno Deploy project URL
+3. Run `pnpm install` to install the required dependencies.
 
 ## Prerequisites
 
