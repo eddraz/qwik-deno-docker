@@ -42,8 +42,10 @@ Inside your project, you'll see the following directory structure:
 1. Clone the repository
 2. For production deployments only (execute once after creating your `.env` file):
    - Configure your repository name in `package.json`
+   - Update the project name in `/.github/workflows/deploy.yml` to match your Deno Deploy project
    - Locate the `prepare.env.file` script in the package.json file
    - Replace `eddraz/qwik-deno-docker` with your repository name
+   - Update the origin URL `https://qwik-docker.deno.dev` in `/adapters/deno/vite.config.ts` with your Deno Deploy project URL
 
 ## Prerequisites
 
