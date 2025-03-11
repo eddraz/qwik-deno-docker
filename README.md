@@ -32,6 +32,25 @@ Inside your project, you'll see the following directory structure:
 
 ## Prerequisites
 
+### Install GitHub CLI
+
+Install [https://github.com/cli/cli/blob/trunk/docs/install_linux.md](GitHub CLI) following these steps:
+
+```bash
+type -p curl >/dev/null || (sudo apt update && sudo apt install curl -y)
+curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
+&& sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
+&& echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+&& sudo apt update \
+&& sudo apt install gh -y
+```
+
+After installation, authenticate with your GitHub account:
+
+```bash
+gh auth login
+```
+
 ### Install Podman
 
 Podman is required to run the containerized application. Follow the installation instructions for your operating system from the [official Podman documentation](https://podman.io/getting-started/installation).
@@ -63,6 +82,24 @@ PUBLIC_MEASUREMENT_ID=xxxxxxxxxxxxx
 ```
 
 2. Update your Firebase project name in `.firebaserc`
+
+### GitHub Actions Deployment Setup
+
+Antes de realizar el despliegue, necesitas configurar el secreto de GitHub Actions con las variables de entorno:
+
+1. Codifica el contenido del archivo `.env` en base64:
+
+```bash
+base64 .env > .env.base64
+```
+
+2. Configura el secreto en GitHub:
+   - Abre el archivo `.env.base64` y copia todo su contenido
+   - Ve a tu repositorio en GitHub → Settings → Secrets and variables → Actions
+   - Crea un nuevo secreto llamado `ENV_FILE_CONTENT`
+   - Pega el contenido codificado en base64 que copiaste
+
+⚠️ IMPORTANTE: No cometas el archivo `.env.base64` al repositorio.
 
 ## Add Integrations and deployment
 
