@@ -20,15 +20,15 @@ jobs:
       - name: Decode .env content
         run: echo "${{ secrets.ENV_FILE_CONTENT }}" | base64 -d > .env
 
-      - name: Build
-        run: |
-          npm install
-          npm run build
-
       - name: Build function
         run: |
           npm install --prefix functions
           npm run build --prefix functions
+
+      - name: Build
+        run: |
+          npm install
+          npm run build
 
       - uses: denoland/deployctl@v1
         with:
