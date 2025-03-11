@@ -40,8 +40,9 @@ Inside your project, you'll see the following directory structure:
 ## Initial Setup
 
 1. Clone the repository
-2. Configure your repository name in `package.json`:
-   - Locate the `prepare.env.file` script
+2. For production deployments only (execute once after creating your `.env` file):
+   - Configure your repository name in `package.json`
+   - Locate the `prepare.env.file` script in the package.json file
    - Replace `eddraz/qwik-deno-docker` with your repository name
 
 ## Prerequisites

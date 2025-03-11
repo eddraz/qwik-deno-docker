@@ -4,10 +4,20 @@
 /lib-types
 /server
 
+# Compiled JavaScript files
+*/lib
+*/lib/**/*.js
+*/lib/**/*.js.map
+
+# TypeScript v1 declaration files
+*/typings/
+
 # Development
 node_modules
+*/node_modules/
 .env*
 *.local
+*/*.local
 
 # Cache
 .cache

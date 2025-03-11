@@ -22,6 +22,7 @@ COPY . .
 
 # Instalar las dependencias de la carpeta functions/ usando npm
 RUN npm install --prefix functions
+RUN npm run build --prefix functions
 
 # Exponer el puerto de desarrollo de Qwik
 EXPOSE 5173
